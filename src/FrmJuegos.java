@@ -82,9 +82,11 @@ public class FrmJuegos extends JFrame {
         switch (tpJugadores.getSelectedIndex()) {
             case 0:
                 mensaje = jugador1.getGrupos();
+                mensaje += jugador1.getGruposByPinta();
                 break;
             case 1:
                 mensaje = jugador2.getGrupos();
+                mensaje += jugador2.getGruposByPinta();
                 break;            
         }
         if(!mensaje.isEmpty()){

@@ -45,10 +45,8 @@ public class Carta {
     }
 
     public NombreCarta getNombre(){
-        int residue = index % 3;
-        if (residue == 0){
-            residue = 13;
-        }
-        return NombreCarta.values()[residue - 1];
+        int residue = index % 13;
+        int position = residue == 0 ? 12 : residue - 1;
+        return NombreCarta.values()[position];
     }
 }

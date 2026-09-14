@@ -46,4 +46,44 @@ public class Jugador {
         }
         return resultado;
     }
+
+    public String getGruposByPinta(){        
+        Carta[] trebol = new Carta[NombreCarta.values().length];
+        Carta[] pica = new Carta[NombreCarta.values().length];
+        Carta[] corazon = new Carta[NombreCarta.values().length];
+        Carta[] diamante = new Carta[NombreCarta.values().length];
+        Carta[][] grupos = {trebol, pica, corazon, diamante};
+        
+        String resultado = "";
+        int counter = 0;
+        
+        for(Carta carta:hand){
+            int pinta = carta.getPinta().ordinal();
+            int nombre = carta.getNombre().ordinal();
+            grupos[pinta][nombre] = carta;
+        }
+
+        for(int i = 0; i <= Pinta.values().length - 1; i++){
+            for(int j = 0; j <= NombreCarta.values().length - 1; j++){
+                if (grupos[i][j] != null) counter++;
+                else {
+                    if (counter > 1) {
+                        Grupo grupo = Grupo.values()[counter];
+                        Pinta pinta = Pinta.values()[i];
+                        NombreCarta nombreInicio = grupos[i][j - counter].getNombre();
+                        NombreCarta nombreFin = grupos[i][j - 1].getNombre();
+
+                        resultado += grupo + " de " + pinta + " de " + nombreInicio + " a " + nombreFin + "\n";                       
+                    } 
+                    counter = 0;
+                }
+            }            
+            int posicionFinal = NombreCarta.values().length - 1;
+            if (counter > 1) {                    
+                resultado += Grupo.values()[counter] + " de " + Pinta.values()[i] + " de " + grupos[i][posicionFinal-counter+1].getNombre() + " a " + grupos[i][posicionFinal].getNombre() + "\n";
+            };            
+            counter = 0;
+        }             
+        return resultado;
+    }
 }
